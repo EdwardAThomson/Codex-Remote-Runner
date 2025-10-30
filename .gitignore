@@ -1,0 +1,20 @@
+node_modules
+.DS_Store
+dist
+build
+coverage
+.env
+.env.local
+.env*.local
+.pnpm-store
+.idea
+.vscode
+
+# Next.js build output
+.next
+out
+
+# Test and security check scripts (optional - can be committed if desired)
+test-auth.sh
+check-secrets-nogit.sh
+check-secrets.sh
