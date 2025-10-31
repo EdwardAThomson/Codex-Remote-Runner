@@ -13,6 +13,12 @@ Codex Remote Runner is a full-stack application that provides a secure, web-base
 
 **Note:** This application requires an active Codex CLI installation and OpenAI API access. Codex must be authenticated on the host machine before running tasks.
 
+
+⚠️ **Warning** - This code has not been audited for security. Use at your own risk.
+
+
+![Screenshot](./Codex_Remote_Runner_Screenshot_20251031.png)
+
 ### Key Features
 
 - 🔐 **Secure Authentication** - Password-based login with bcrypt hashing and JWT sessions
@@ -118,7 +124,17 @@ cd web
 pnpm dev
 ```
 
-### 5. Access the Application
+### 5. Create Default Workspace (Optional)
+
+The default workspace directory is `~/codex-workspace`. Create it if it doesn't exist:
+
+```bash
+mkdir -p ~/codex-workspace
+```
+
+**Note:** You can override this per-task in the web UI, or change the default in `gateway/.env` (`DEFAULT_WORKSPACE`).
+
+### 6. Access the Application
 
 1. Open your browser to **http://localhost:3001**
 2. Log in with your admin password
@@ -129,7 +145,9 @@ pnpm dev
 ### Web Interface
 
 1. **Login** - Enter your admin password
-2. **Set Workspace** - Specify the directory for Codex to work in (optional, uses default if empty)
+2. **Set Workspace** - Specify the directory for Codex to work in
+   - Leave empty to use default: `~/codex-workspace`
+   - Or specify a custom path (e.g., `~/my-project`)
 3. **Enter Prompt** - Describe the task for Codex
 4. **Submit** - Watch real-time output as Codex executes
 5. **Review** - Output history is preserved for the session
@@ -273,6 +291,16 @@ Verify:
 - Gateway is running on port 3000
 - `NEXT_PUBLIC_GATEWAY_URL` in `web/.env.local` is correct
 - No CORS issues (check browser console)
+
+### Task fails with "directory not found" or permission errors
+
+The default workspace directory may not exist:
+```bash
+mkdir -p ~/codex-workspace
+chmod 755 ~/codex-workspace
+```
+
+Or specify a different directory in the web UI workspace field.
 
 ## License
 

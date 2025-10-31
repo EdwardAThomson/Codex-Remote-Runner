@@ -183,13 +183,16 @@ export default function TaskConsole() {
       <div className="task-console">
         <form onSubmit={handleSubmit} className="task-form">
         <label className="form-field">
-          <span className="form-label">Workspace Directory (optional)</span>
+          <span className="form-label">
+            Workspace Directory (optional)
+            <span className="form-hint"> — Default: ~/codex-workspace</span>
+          </span>
           <input
             type="text"
             value={cwd}
             onChange={(event) => setCwd(event.target.value)}
             className="form-input"
-            placeholder="Leave empty to use default workspace"
+            placeholder="~/codex-workspace"
             disabled={isSubmitting}
           />
         </label>
@@ -232,22 +235,24 @@ export default function TaskConsole() {
         ) : null}
       </div>
 
-      <div className="stream-meta">
-        {latestStatus ? (
-          <p className="stream-current">
-            Current status: {latestStatus.state}
-            {latestStatus.error ? ` – ${latestStatus.error}` : ''}
-          </p>
-        ) : null}
-        {heartbeatTs ? (
-          <p className="stream-heartbeat">
-            Last heartbeat: {new Date(heartbeatTs).toLocaleTimeString()}
-          </p>
-        ) : null}
-      </div>
-
       <div className="stream-section">
         <h2 className="section-title">Stream</h2>
+        
+        {(latestStatus || heartbeatTs) && (
+          <div className="stream-meta">
+            {latestStatus ? (
+              <p className="stream-current">
+                Current status: {latestStatus.state}
+                {latestStatus.error ? ` – ${latestStatus.error}` : ''}
+              </p>
+            ) : null}
+            {heartbeatTs ? (
+              <p className="stream-heartbeat">
+                Last heartbeat: {new Date(heartbeatTs).toLocaleTimeString()}
+              </p>
+            ) : null}
+          </div>
+        )}
         <div 
           className="stream-panel"
           ref={streamPanelRef}
